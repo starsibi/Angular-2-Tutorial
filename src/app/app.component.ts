@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+ pageHeader:string = "Employee Details"
+val  :any;
+onkey(event){
+  this.val = event.target.value +  "|";
+ }
 }
