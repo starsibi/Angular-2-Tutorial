@@ -18,7 +18,7 @@
     <div class="form-group row">
       <label for="example-text-input" class="col-2 col-form-label">Age</label>
       <div class="col-10">
-        <input class="form-control" type="text" [(ngModel)]="employee.age" required name="age" #age="ngModel" employeeAge>
+        <input class="form-control" type="text" [(ngModel)]="employee.age" required name="age" #age="ngModel">
         <div [hidden]="age.valid || age.pristine"class="alert alert-danger">Age is required</div>
       </div>
     </div>
@@ -29,6 +29,38 @@
         <div [hidden]="phonenumber.valid || phonenumber.pristine"class="alert alert-danger">PhoneNumber is required</div>
       </div>
     </div>
-    <button type="submit" class="btn btn-success" [disabled]="!emplyeeform.form.valid">Submit</button>
+    <button type="button" class="btn btn-info" [disabled]="!emplyeeform.form.valid"  *ngIf="updatebutton" (click)="update(emplyeeform)">Update</button>
+    <button type="submit" class="btn btn-success" [disabled]="!emplyeeform.form.valid" *ngIf="!updatebutton">Submit</button>
   </form>
+</div>
+<hr>
+<div class="container">
+  <h1 class="row">
+    Employee Details
+  </h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Phone Number</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor = "let employee of employees">
+        <td *ngIf="employee">{{employee.firstname}}</td>
+        <td *ngIf="employee">{{employee.lastname}}</td>
+        <td *ngIf="employee">{{employee.age}}</td>
+        <td *ngIf="employee">{{employee.phonenumber}}</td>
+        <td><button type="button" class="btn btn-info" *ngIf="employee" (click)="updateEmployee(employee)">Update</button></td>
+        <td><button type="button" class="btn btn-danger" *ngIf="employee" (click)="deleteEmployee(employee)">Delete</button></td>
+      </tr>
+      <h5 class="row" *ngIf="employees.length == 0">
+        No Data To Display
+      </h5>
+    </tbody>
+  </table>
 </div>
